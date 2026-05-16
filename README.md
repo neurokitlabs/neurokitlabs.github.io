@@ -1,10 +1,10 @@
-# NeuroKit Labs
+# Neurokit Page
 
-NeuroKit Labs is building an AI-powered study companion for Indonesian students pursuing ambitious academic goals. This repository contains the public company website for `neurokitlabs.github.io`, built as a static `Next.js` and `Tailwind CSS` site for GitHub Pages deployment.
+This repository contains the public company website for `neurokitlabs.github.io`, built as a static `Next.js` and `Tailwind CSS` site for GitHub Pages deployment.
 
 ## Overview
 
-NeuroKit is designed to make focused learning more motivating, measurable, and personalized. Our product vision combines structured study support, adaptive encouragement, and progress visibility into a single experience tailored for high school students preparing for major academic milestones.
+Neurokit is designed to make focused learning more motivating, measurable, and personalized. Our product vision combines structured study support, adaptive encouragement, and progress visibility into a single experience tailored for high school students preparing for major academic milestones.
 
 We are building for students who need more than a timer or a notes app. They need a system that helps them stay consistent, feel supported, and see real momentum over time.
 
@@ -12,7 +12,7 @@ We are building for students who need more than a timer or a notes app. They nee
 
 Our long-term vision is to become the study operating system for ambitious students in Indonesia.
 
-NeuroKit brings together:
+Neurokit brings together:
 
 - AI-powered motivation that adapts to a student's goals and context
 - Progress tracking that makes effort visible and rewarding
@@ -21,7 +21,7 @@ NeuroKit brings together:
 
 ## What We Are Building
 
-The broader NeuroKit product direction includes:
+The broader Neurokit product direction includes:
 
 - Personalized motivation for students targeting specific universities, majors, and academic outcomes
 - Study analytics such as focus time, streaks, and progress summaries
@@ -36,7 +36,7 @@ Help Indonesian students study with more focus, confidence, and direction throug
 
 ## Audience
 
-NeuroKit is currently centered on:
+Neurokit is currently centered on:
 
 - Indonesian high school students, especially grades 10-12
 - Students preparing for competitive university admissions
@@ -80,7 +80,7 @@ Because this repo is published as `neurokitlabs.github.io`, the site is served f
 
 ## Product Direction
 
-While this repository hosts the company website, the product story behind NeuroKit includes:
+While this repository hosts the company website, the product story behind Neurokit includes:
 
 - AI-assisted motivation and encouragement
 - student progress visibility and analytics
@@ -91,7 +91,7 @@ The public site should communicate the company clearly, not mirror a mobile app 
 
 ## Team
 
-NeuroKit is being developed by the NeuroKit team with a focus on education, product design, and AI-assisted learning experiences for Indonesia.
+Neurokit is being developed by the Neurokit team with a focus on education, product design, and AI-assisted learning experiences for Indonesia.
 
 ## Status
 

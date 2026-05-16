@@ -1,10 +1,10 @@
-# NeuroKit Design Guide
+# Neurokit Design Guide
 
-This document defines the core visual direction for the NeuroKit company website.
+This document defines the core visual direction for the Neurokit company website.
 
 ## Brand Personality
 
-NeuroKit should feel:
+Neurokit should feel:
 
 - trustworthy
 - intelligent
@@ -40,7 +40,7 @@ Suggested usage:
 
 ## Typography
 
-NeuroKit uses:
+Neurokit uses:
 
 - `Poppins`
 - `Ovo`
