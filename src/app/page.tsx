@@ -400,7 +400,7 @@ function AppWalkthrough() {
                     <motion.div
                       key={item.index}
                       custom={direction}
-                      initial={(dir: 1 | -1) => getPhoneSlot(dir * 3)}
+                      initial={getPhoneSlot(direction * 3)}
                       animate={getPhoneSlot(item.offset)}
                       exit={{
                         ...getPhoneSlot(item.offset),
