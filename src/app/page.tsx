@@ -386,15 +386,15 @@ function AppWalkthrough() {
     <section id="app" className="relative overflow-hidden border-y border-[var(--line)] bg-[var(--blue)] text-white">
       <div className="absolute inset-0 opacity-30 [background:radial-gradient(circle_at_22%_18%,rgba(254,236,78,0.2),transparent_28%),radial-gradient(circle_at_80%_74%,rgba(255,255,255,0.16),transparent_30%)]" />
       
-      <div className="relative mx-auto w-full max-w-7xl px-5 py-24 sm:px-8 lg:px-12">
+      <div className="relative mx-auto w-full max-w-7xl px-5 py-10 sm:px-8 sm:py-24 lg:px-12">
         <Reveal>
-          <div className="grid gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-32 xl:gap-40">
+          <div className="grid gap-2 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-32 xl:gap-40">
             
             {/* Left: App Visual */}
-            <div className="relative flex justify-center lg:justify-end lg:pr-10">
+            <div className="order-2 relative flex justify-center lg:order-1 lg:justify-end lg:pr-10">
               <div className="absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgba(254,236,78,0.08)] blur-[80px]" />
               
-              <div className="relative flex h-[600px] w-full max-w-[340px] items-center justify-center">
+              <div className="relative flex h-[520px] w-full max-w-[340px] items-center justify-center sm:h-[600px]">
                 <AnimatePresence custom={direction} initial={false}>
                   {carouselSlides.map((item) => (
                     <motion.div
@@ -437,7 +437,7 @@ function AppWalkthrough() {
             </div>
 
             {/* Right: Text Content */}
-            <div className="flex flex-col text-center lg:text-left items-center lg:items-start">
+            <div className="order-1 flex flex-col items-center text-center lg:order-2 lg:items-start lg:text-left">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--sun)]">
                 APP WALKTHROUGH
               </p>
@@ -445,7 +445,7 @@ function AppWalkthrough() {
                 A guided session, step by step.
               </h2>
               
-              <div className="mt-10 w-full max-w-sm">
+              <div className="mt-10 hidden w-full max-w-sm lg:block">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={slide.title}
@@ -465,7 +465,7 @@ function AppWalkthrough() {
                 </AnimatePresence>
               </div>
 
-              <div className="mt-8 flex w-full max-w-sm flex-col gap-8">
+              <div className="mt-8 hidden w-full max-w-sm flex-col gap-8 lg:flex">
                 <div className="flex items-center gap-4 text-sm font-semibold text-white/78">
                   <span>{String(activeSlide + 1).padStart(2, "0")}</span>
                   <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/14">
@@ -502,6 +502,65 @@ function AppWalkthrough() {
                 </div>
               </div>
             </div>
+
+            <div className="order-3 w-full max-w-sm justify-self-center lg:hidden">
+              <div className="mt-2 w-full">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={slide.title}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="h-20 text-center"
+                  >
+                    <h3 className="text-2xl font-semibold text-white">
+                      {slide.title}
+                    </h3>
+                    <p className="mt-3 text-base leading-relaxed text-white/70">
+                      {slide.caption}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              <div className="mt-4 flex w-full flex-col gap-4">
+                <div className="flex items-center gap-4 text-sm font-semibold text-white/78">
+                  <span>{String(activeSlide + 1).padStart(2, "0")}</span>
+                  <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/14">
+                    <motion.div
+                      className="h-full rounded-full bg-[var(--sun)]"
+                      animate={{ width: `${progress}%` }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    />
+                  </div>
+                  <span>{String(appSlides.length).padStart(2, "0")}</span>
+                </div>
+
+                <div className="flex items-center justify-center gap-4">
+                  <button
+                    type="button"
+                    onClick={() => changeSlide(-1)}
+                    aria-label="Previous slide"
+                    className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-sm transition hover:bg-white/10"
+                  >
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => changeSlide(1)}
+                    aria-label="Next slide"
+                    className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--sun)] text-[var(--blue)] shadow-lg transition hover:scale-105"
+                  >
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </Reveal>
       </div>
@@ -510,6 +569,14 @@ function AppWalkthrough() {
 }
 
 export default function Home() {
+  const [activeGalleryCard, setActiveGalleryCard] = useState<string | null>(null);
+
+  const toggleGalleryCard = (cardId: string) => {
+    setActiveGalleryCard((current) => (current === cardId ? null : cardId));
+  };
+
+  const isPresentationOpen = activeGalleryCard === "presentation";
+
   return (
     <>
       <ScrollProgress />
@@ -531,7 +598,7 @@ export default function Home() {
               <p className="mt-5 [font-family:Ovo,serif] text-xl leading-snug text-white/90 sm:text-2xl">
                 The focus layer for the endless-scroll generation.
               </p>
-              <p className="mt-4 max-w-lg text-base leading-7 text-white/70 sm:text-lg">
+              <p className="mx-auto mt-4 max-w-lg text-base leading-7 text-white/70 sm:text-lg lg:mx-0">
                 An AI-powered study companion that combines personalized motivation, adaptive light and music therapy, and gamified cognitive warm-ups.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
@@ -561,8 +628,9 @@ export default function Home() {
             <Reveal delay={0.15} className="mx-auto mt-6 max-w-3xl text-center text-base leading-8 text-[var(--ink-muted)]">
               <p>
                 Neurokit helps students build better study sessions through a connected app and device.
-                <br />
-                The app guides motivation, warm-ups, and rewards, while the device supports each session with adaptive light and music therapy.
+                <span className="mt-2 block">
+                  The app guides motivation, warm-ups, and rewards, while the device supports each session with adaptive light and music therapy.
+                </span>
               </p>
             </Reveal>
           </div>
@@ -581,8 +649,8 @@ export default function Home() {
               />
             </Reveal>
 
-            <div className="mt-10 grid auto-rows-[165px] gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <Reveal className="sm:col-span-2 lg:col-span-2 lg:row-span-2">
+            <div className="mt-10 grid gap-4 sm:auto-rows-[145px] sm:grid-cols-2 lg:auto-rows-[165px] lg:grid-cols-4">
+              <Reveal className="sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2">
                 <article className="h-full rounded-[2rem] bg-[var(--blue)] px-7 py-8 text-white shadow-[0_24px_70px_rgba(11,52,132,0.18)]">
                   <p className="section-label !text-[var(--sun)]">Current Status</p>
                   <h2 className="mt-4 [font-family:Ovo,serif] text-3xl leading-tight sm:text-4xl">
@@ -659,7 +727,10 @@ export default function Home() {
 
             <div className="mt-10 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
               <Reveal>
-                <article className="group relative h-full overflow-hidden rounded-[1.6rem] border border-[var(--line)]/35 bg-white">
+                <article
+                  className="group relative h-full cursor-pointer overflow-hidden rounded-[1.6rem] border border-[var(--line)]/35 bg-white"
+                  onClick={() => toggleGalleryCard("presentation")}
+                >
                   <div className="relative aspect-[16/9] w-full lg:h-full lg:aspect-auto">
                     <Image
                       src="/activity/presentation.png"
@@ -667,8 +738,16 @@ export default function Home() {
                       fill
                       className="object-cover object-center"
                     />
-                    <div className="absolute inset-0 bg-[rgba(11,52,132,0.76)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    <div className="absolute inset-0 flex items-end p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div
+                      className={`absolute inset-0 bg-[rgba(11,52,132,0.76)] transition-opacity duration-300 ${
+                        isPresentationOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                      }`}
+                    />
+                    <div
+                      className={`absolute inset-0 flex items-end p-5 transition-opacity duration-300 ${
+                        isPresentationOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                      }`}
+                    >
                       <p className="max-w-xl text-sm font-semibold leading-6 text-white sm:text-base">
                         Presentation Activity
                         <span className="mt-1 block text-xs font-medium text-white/85 sm:text-sm">
@@ -683,7 +762,10 @@ export default function Home() {
               <div className="grid gap-4 sm:grid-cols-2">
                 {activityGallery.map((item, index) => (
                   <Reveal key={item.title} delay={index * 0.06}>
-                    <article className="group relative overflow-hidden rounded-[1.3rem] border border-[var(--line)]/35 bg-white">
+                    <article
+                      className="group relative cursor-pointer overflow-hidden rounded-[1.3rem] border border-[var(--line)]/35 bg-white"
+                      onClick={() => toggleGalleryCard(item.title)}
+                    >
                       <div className="relative aspect-[16/10] w-full">
                         <Image
                           src={item.image}
@@ -691,8 +773,16 @@ export default function Home() {
                           fill
                           className={`object-cover object-center ${item.imageClassName ?? ""}`}
                         />
-                        <div className="absolute inset-0 bg-[rgba(11,52,132,0.76)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                        <div className="absolute inset-0 flex items-end p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        <div
+                          className={`absolute inset-0 bg-[rgba(11,52,132,0.76)] transition-opacity duration-300 ${
+                            activeGalleryCard === item.title ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                          }`}
+                        />
+                        <div
+                          className={`absolute inset-0 flex items-end p-4 transition-opacity duration-300 ${
+                            activeGalleryCard === item.title ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                          }`}
+                        >
                           <p className="text-xs font-semibold leading-5 text-white sm:text-sm">
                             {item.title}
                             <span className="mt-1 block text-[11px] font-medium leading-4 text-white/85 sm:text-xs">
