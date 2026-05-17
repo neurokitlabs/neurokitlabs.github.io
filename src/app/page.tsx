@@ -71,14 +71,14 @@ const appSlides = [
     caption: "Students receive encouragement after completing the session.",
   },
   {
-    title: "Overview",
-    image: "/app/overview.png",
-    caption: "Students can review progress and session activity.",
-  },
-  {
     title: "Rewards",
     image: "/app/rewards.png",
     caption: "Points and rewards make consistency visible.",
+  },
+  {
+    title: "Overview",
+    image: "/app/overview.png",
+    caption: "Students can review progress and session activity.",
   },
 ];
 
@@ -95,14 +95,14 @@ const activityGallery = [
     description: "Direct student trials to observe focus, usability, and session flow.",
   },
   {
-    title: "Product Hardware",
+    title: "Demo-Ready Product",
     image: "/activity/product.png",
-    description: "Physical hardware build and product detail snapshots.",
+    description: "Neurokit hardware and app prepared for the demo filming.",
   },
   {
-    title: "App Interface",
+    title: "Hands-on App Testing",
     image: "/activity/interface.png",
-    description: "Mobile control flow and interaction screens.",
+    description: "Validation of Neurokit app flows on mobile for session simulations.",
   },
   {
     title: "Development Process",
@@ -629,7 +629,7 @@ export default function Home() {
               <p>
                 Neurokit helps students build better study sessions through a connected app and device.
                 <span className="mt-2 block">
-                  The app guides motivation, warm-ups, and rewards, while the device supports each session with adaptive light and music therapy.
+                  The app provides motivation, warm-ups, and rewards, while the device supports each session with adaptive light and music therapy.
                 </span>
               </p>
             </Reveal>
@@ -751,7 +751,7 @@ export default function Home() {
                       <p className="max-w-xl text-sm font-semibold leading-6 text-white sm:text-base">
                         Presentation Activity
                         <span className="mt-1 block text-xs font-medium text-white/85 sm:text-sm">
-                          Team presentation and live demonstration of Neurokit.
+                          Team presentation with an in-person product showcase.
                         </span>
                       </p>
                     </div>
@@ -805,14 +805,16 @@ export default function Home() {
               <article className="rounded-[2rem] bg-[var(--blue)] px-7 py-10 text-white shadow-[0_24px_70px_rgba(11,52,132,0.22)] sm:px-10">
                 <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--sun)]">Contact</p>
                 <h2 className="mt-4 [font-family:Ovo,serif] text-3xl leading-tight sm:text-4xl">
-                  Bring Neurokit to your classroom or program.
+                  Bring Neurokit into your study routine.
                 </h2>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-white/84 sm:text-base">
-                  For pilot collaboration, demo sessions, investor conversations, and media inquiries. Contact us at{" "}
-                  <a href="mailto:neurokitunsrat@gmail.com" className="font-semibold text-white transition hover:text-[var(--sun)] hover:underline">
+                  Contact us at: {" "}
+                  <a
+                    href="mailto:neurokitunsrat@gmail.com"
+                    className="inline-flex items-center rounded-full border border-white/24 bg-white/12 px-3 font-semibold text-white transition hover:border-[var(--sun)]/45 hover:bg-white/18 hover:text-[var(--sun)]"
+                  >
                     neurokitunsrat@gmail.com
                   </a>
-                  .
                 </p>              
               </article>
             </Reveal>
