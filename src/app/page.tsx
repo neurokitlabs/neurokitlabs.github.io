@@ -117,11 +117,13 @@ function ProductImage({
   alt,
   className = "",
   sizes = "(max-width: 640px) 74vw, (max-width: 1024px) 52vw, 500px",
+  loading = "lazy",
 }: {
   src: string;
   alt: string;
   className?: string;
   sizes?: string;
+  loading?: "lazy" | "eager";
 }) {
   return (
     <Image
@@ -130,6 +132,7 @@ function ProductImage({
       width={900}
       height={900}
       sizes={sizes}
+      loading={loading}
       className={`h-full w-full object-contain ${className}`}
     />
   );
@@ -423,6 +426,7 @@ function AppWalkthrough() {
                         alt={item.offset === 0 ? item.title : ""}
                         fill
                         sizes="(max-width: 640px) 84vw, 340px"
+                        loading="lazy"
                         className={`rounded-[2.2rem] object-cover object-center ${
                           item.offset === 0
                             ? "drop-shadow-[0_24px_50px_rgba(0,0,0,0.3)]"
@@ -569,10 +573,69 @@ function AppWalkthrough() {
 
 export default function Home() {
   const [activeGalleryCard, setActiveGalleryCard] = useState<string | null>(null);
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied">("idle");
+  const contactEmail = "neurokitunsrat@gmail.com";
+  const copyResetTimeoutRef = useRef<number | null>(null);
 
   const toggleGalleryCard = (cardId: string) => {
     setActiveGalleryCard((current) => (current === cardId ? null : cardId));
   };
+
+  const copyWithFallback = (text: string) => {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "true");
+    textarea.style.position = "fixed";
+    textarea.style.top = "0";
+    textarea.style.left = "0";
+    textarea.style.opacity = "0";
+    textarea.style.pointerEvents = "none";
+    document.body.appendChild(textarea);
+    textarea.focus({ preventScroll: true });
+    textarea.select();
+    textarea.setSelectionRange(0, text.length);
+    const copied = document.execCommand("copy");
+    document.body.removeChild(textarea);
+    return copied;
+  };
+
+  const showCopiedState = () => {
+    if (copyResetTimeoutRef.current) {
+      window.clearTimeout(copyResetTimeoutRef.current);
+    }
+
+    setCopyStatus("copied");
+    copyResetTimeoutRef.current = window.setTimeout(() => {
+      setCopyStatus("idle");
+      copyResetTimeoutRef.current = null;
+    }, 2000);
+  };
+
+  const copyContactEmail = () => {
+    try {
+      if (copyWithFallback(contactEmail)) {
+        showCopiedState();
+        return;
+      }
+    } catch {
+      // Continue to the async Clipboard API below.
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      void navigator.clipboard
+        .writeText(contactEmail)
+        .then(showCopiedState)
+        .catch(() => setCopyStatus("idle"));
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (copyResetTimeoutRef.current) {
+        window.clearTimeout(copyResetTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const isPresentationOpen = activeGalleryCard === "presentation";
 
@@ -736,6 +799,7 @@ export default function Home() {
                       alt="Neurokit presentation activity"
                       fill
                       sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1023px) calc(100vw - 4rem), 58vw"
+                      loading="lazy"
                       className="object-cover object-center"
                     />
                     <div
@@ -772,6 +836,7 @@ export default function Home() {
                           alt={item.title}
                           fill
                           sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1023px) calc(50vw - 2.5rem), 20vw"
+                          loading="lazy"
                           className={`object-cover object-center ${item.imageClassName ?? ""}`}
                         />
                         <div
@@ -809,13 +874,41 @@ export default function Home() {
                   Bring Neurokit into your study routine.
                 </h2>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-white/84 sm:text-base">
-                  Contact us at: {" "}
-                  <a
-                    href="mailto:neurokitunsrat@gmail.com"
-                    className="inline-flex items-center rounded-full border border-white/24 bg-white/12 px-3 font-semibold text-white transition hover:border-[var(--sun)]/45 hover:bg-white/18 hover:text-[var(--sun)]"
-                  >
-                    neurokitunsrat@gmail.com
-                  </a>
+                  Contact us at:{" "}
+                  <span className="inline-flex items-center gap-2 align-middle">
+                    <a
+                      href={`mailto:${contactEmail}`}
+                      className="inline-flex items-center rounded-full border border-white/24 bg-white/12 px-3 font-semibold text-white transition hover:border-[var(--sun)]/45 hover:bg-white/18 hover:text-[var(--sun)]"
+                    >
+                      {contactEmail}
+                    </a>
+                    <button
+                      type="button"
+                      onClick={copyContactEmail}
+                      aria-label={copyStatus === "copied" ? "Email copied" : "Copy email address"}
+                      title="Copy email"
+                      className={`inline-flex h-8 w-8 touch-manipulation items-center justify-center rounded-full border transition ${
+                        copyStatus === "copied"
+                          ? "border-emerald-300/70 bg-emerald-400/20 text-emerald-100"
+                          : "border-white/24 bg-white/12 text-white hover:border-[var(--sun)]/45 hover:bg-white/18 hover:text-[var(--sun)]"
+                      }`}
+                    >
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                      </svg>
+                    </button>
+                  </span>
                 </p>              
               </article>
             </Reveal>
