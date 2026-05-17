@@ -77,7 +77,9 @@ export default function HeroImage() {
           alt="Neurokit device and mobile app"
           width={720}
           height={720}
-          preload
+          sizes="(max-width: 640px) 92vw, (max-width: 1024px) 72vw, 680px"
+          fetchPriority="high"
+          loading="eager"
           className="h-auto w-full drop-shadow-[0_32px_48px_rgba(4,14,42,0.55)]"
         />
       </motion.div>

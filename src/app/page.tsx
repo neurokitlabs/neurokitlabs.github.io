@@ -116,12 +116,12 @@ function ProductImage({
   src,
   alt,
   className = "",
-  priority = false,
+  sizes = "(max-width: 640px) 74vw, (max-width: 1024px) 52vw, 500px",
 }: {
   src: string;
   alt: string;
   className?: string;
-  priority?: boolean;
+  sizes?: string;
 }) {
   return (
     <Image
@@ -129,7 +129,7 @@ function ProductImage({
       alt={alt}
       width={900}
       height={900}
-      priority={priority}
+      sizes={sizes}
       className={`h-full w-full object-contain ${className}`}
     />
   );
@@ -273,7 +273,6 @@ function ProductEvolution() {
                   <ProductImage
                     src={stage.image}
                     alt={`Neurokit ${stage.title}`}
-                    priority={activeStage === 0}
                     className="max-h-[56vh] max-w-[500px] drop-shadow-[0_24px_50px_rgba(11,52,132,0.15)]"
                   />
                 </motion.div>
@@ -423,7 +422,7 @@ function AppWalkthrough() {
                         src={item.image}
                         alt={item.offset === 0 ? item.title : ""}
                         fill
-                        priority={item.offset === 0 && activeSlide < 2}
+                        sizes="(max-width: 640px) 84vw, 340px"
                         className={`rounded-[2.2rem] object-cover object-center ${
                           item.offset === 0
                             ? "drop-shadow-[0_24px_50px_rgba(0,0,0,0.3)]"
@@ -736,6 +735,7 @@ export default function Home() {
                       src="/activity/presentation.png"
                       alt="Neurokit presentation activity"
                       fill
+                      sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1023px) calc(100vw - 4rem), 58vw"
                       className="object-cover object-center"
                     />
                     <div
@@ -771,6 +771,7 @@ export default function Home() {
                           src={item.image}
                           alt={item.title}
                           fill
+                          sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1023px) calc(50vw - 2.5rem), 20vw"
                           className={`object-cover object-center ${item.imageClassName ?? ""}`}
                         />
                         <div
